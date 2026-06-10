@@ -1,0 +1,202 @@
+body {
+    background: var(--neutral, #212121);
+    color: var(--textColor, #9B9B9B);
+    font-family: var(--textFont, system-ui);
+}
+
+.bt-audioplayer {
+    background: var(--neutralDark, #1C1C1C);
+    padding: var(--padding, 14px);
+    border-radius: var(--radius, 15px);
+    width: var(--width, 300px);
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.bt-play-button {
+    width: 30px;
+    height: 30px;
+    margin-right: 2px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--neutral, #212121);
+
+    cursor: pointer;
+}
+
+.bt-play-button:hover .bt-icon {
+    transform: scale(1.05);
+    color: var(--accentClr, #C8C8C8);
+}
+.bt-play-button:active .bt-icon {
+    transform: scale(0.92);
+}
+
+.bt-track-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.bt-progress-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(155,155,155,.15);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: height .15s ease;
+}
+
+.bt-progress-bar:hover {
+    height: 6px;
+}
+
+.bt-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--accentClr, #646464);
+    border-radius: 999px;
+
+    position: relative;
+}
+.bt-progress-fill::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--textColor, #9B9B9B);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(50%, -50%) scale(0.5);
+    transition: transform .15s ease, opacity .15s ease;
+}
+
+.bt-progress-bar:hover .bt-progress-fill::after {
+    opacity: 1;
+    transform: translate(50%, -50%) scale(1);
+}
+
+.bt-progress-bar.dragging .bt-progress-fill::after {
+    opacity: 1;
+    transform: translate(50%, -50%) scale(1);
+}
+
+.bt-time-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bt-volume-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.bt-volume-control.open .bt-volume-slider {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.bt-volume-slider {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-90deg);
+    transform-origin: center;
+    opacity: 0;
+    pointer-events: none;
+    width: 40px;
+    height: 4px;
+    flex: none;
+    appearance: none;
+    background: rgba(255,255,255,.15);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: opacity .15s ease;
+}
+
+.bt-volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--textColor, #9B9B9B);
+}
+
+.bt-volume-slider::-moz-range-thumb {
+    width: 8px;
+    height: 8px;
+    border: none;
+    border-radius: 50%;
+    background: var(--textColor, #9B9B9B);
+}
+
+.bt-volume-icon {
+    display: flex;
+    align-items: center;
+    color: var(--textColor, #9B9B9B);
+}
+
+.bt-volume-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.bt-volume-control.open .bt-volume-icon {
+    color: var(--accentClr, #C8C8C8);
+}
+
+.bt-track-text {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    margin-bottom: 4px;
+    font-family: var(--textFont, system-ui), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    text-align: center;
+}
+
+.bt-title {
+    font-weight: 600;
+}
+
+.bt-artist {
+    opacity: .7;
+}
+
+.bt-separator {
+    opacity: .5;
+}
+
+.bt-icon {
+    display: flex;
+    padding-left: 2px;
+    align-items: center;
+    justify-content: center;
+    color: var(--textColor, #9B9B9B);
+    transition: transform .15s ease, color .15s ease;
+}
+
+.bt-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.bt-time-display {
+    font-size: 11px;
+    white-space: nowrap;
+    min-width: 55px;
+    text-align: right;
+    color: var(--textColor, #9B9B9B);
+}

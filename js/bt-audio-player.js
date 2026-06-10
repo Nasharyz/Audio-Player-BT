@@ -1,0 +1,201 @@
+let currentAudio = null;
+let currentIcon = null;
+
+document.querySelectorAll(".bt-audioplayer").forEach(player => {
+    
+    let isDragging = false;
+
+    const audio = player.querySelector(".bt-audio");
+    const icon = player.querySelector(".bt-icon");
+    const title = player.querySelector(".bt-title");
+    const artist = player.querySelector(".bt-artist");
+    const trackText = player.querySelector(".bt-track-text");
+    const button = player.querySelector(".bt-play-button");
+    const progressFill = player.querySelector(".bt-progress-fill");
+    const currentTimeElement = player.querySelector(".bt-current-time");
+    const durationElement = player.querySelector(".bt-duration");
+    const progressBar = player.querySelector(".bt-progress-bar");
+    const volumeSlider = player.querySelector(".bt-volume-slider");
+    const volumeControl = player.querySelector(".bt-volume-control");
+
+title.textContent =
+    player.dataset.title || "Titre";
+artist.textContent =
+    player.dataset.artist || "Artiste";
+
+    if (
+    player.dataset.showcredits === "false"
+) {
+    trackText.style.display = "none";
+}
+    audio.src = player.dataset.audio;
+    audio.volume = volumeSlider.value;
+
+const playSVG = `
+<svg viewBox="0 0 24 24" width="100%" height="100%">
+        <path
+            fill="currentColor"
+            d="M6 5.912c0-.155.037-.307.107-.443c.23-.44.75-.599 1.163-.354l10.29 6.088c.14.083.255.206.332.355c.23.44.08.995-.332 1.239L7.27 18.885a.8.8 0 0 1-.415.115C6.383 19 6 18.592 6 18.089z"/>
+    </svg>`;
+
+const pauseSVG = `
+<svg viewBox="0 0 24 24" width="100%" height="100%">
+    <path fill="currentColor"
+        fill-rule="evenodd"
+        d="M10 18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1zm7 0a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1z"/>
+</svg>`;
+    icon.innerHTML = playSVG;
+
+    function updateProgress(clientX) {
+        if (!audio.duration) return;
+
+            const rect = progressBar.getBoundingClientRect();
+
+            let percentage =
+            (clientX - rect.left) / rect.width;
+
+            percentage = Math.max(0, Math.min(1, percentage));
+
+            audio.currentTime =
+            percentage * audio.duration;
+
+            progressFill.style.width =
+            (percentage * 100) + "%";
+    
+            currentTimeElement.textContent =
+            formatTime(audio.currentTime);
+        }
+        
+    button.addEventListener("click", function() {
+
+        if (audio.paused) {
+
+        if (currentAudio && currentAudio !== audio) {
+        currentAudio.pause();
+
+            if (currentIcon) {
+                currentIcon.innerHTML = playSVG;
+            }
+        }
+
+    audio.play().then(() => {
+        icon.innerHTML = pauseSVG;
+
+        currentAudio = audio;
+        currentIcon = icon;
+
+    }).catch(error => {
+        console.log(error);
+    });
+
+    } else {
+
+    audio.pause();
+    icon.innerHTML = playSVG;
+
+    if (currentAudio === audio) {
+        currentAudio = null;
+        currentIcon = null;
+    }
+}
+    });
+
+audio.addEventListener("timeupdate", function() {
+    if (isDragging) return;
+    if (!audio.duration) return;
+
+    const percentage =
+        (audio.currentTime / audio.duration) * 100;
+
+    progressFill.style.width = percentage + "%";
+    currentTimeElement.textContent =
+        formatTime(audio.currentTime);
+});
+    function formatTime(seconds) {
+    const minutes =Math.floor(seconds / 60);
+    const remainingSeconds =Math.floor(seconds % 60);
+    return (minutes + ":" + remainingSeconds.toString().padStart(2, "0"));
+}
+
+volumeSlider.addEventListener("input", function() {
+    audio.volume = volumeSlider.value;
+});
+
+volumeControl.addEventListener("click", (event) => {
+
+    event.stopPropagation();
+
+    document
+        .querySelectorAll(".bt-volume-control")
+        .forEach(el => el.classList.remove("open"));
+
+    volumeControl.classList.add("open");
+});
+
+audio.addEventListener("loadedmetadata", function() {
+    durationElement.textContent =formatTime(audio.duration);
+        });
+
+progressBar.addEventListener("click", function(event) {
+    updateProgress(event.clientX);
+});
+
+progressBar.addEventListener("mousedown", function(event) {
+    isDragging = true;
+    progressBar.classList.add("dragging");
+    updateProgress(event.clientX);
+});
+
+document.addEventListener("mousemove", function(event) {
+    if (!isDragging) return;
+    updateProgress(event.clientX);
+});
+
+document.addEventListener("mouseup", function() {
+    isDragging = false;
+    progressBar.classList.remove("dragging");
+});
+progressBar.addEventListener("touchstart", function(event) {
+    isDragging = true;
+    progressBar.classList.add("dragging");
+    updateProgress(event.touches[0].clientX);
+});
+
+document.addEventListener("touchmove", function(event) {
+    if (!isDragging) return;
+    event.preventDefault();
+    updateProgress(event.touches[0].clientX);
+},{ passive: false });
+
+document.addEventListener("touchend", function() {
+    isDragging = false;
+    progressBar.classList.remove("dragging");
+});
+
+audio.addEventListener("ended", function() {
+    icon.innerHTML = playSVG;
+    audio.currentTime = 0;
+    progressFill.style.width = "0%";
+    currentTimeElement.textContent = "0:00";
+
+    if (currentAudio === audio) {
+        currentAudio = null;
+        currentIcon = null;
+    }
+        });
+document.addEventListener("click", (event) => {
+
+    const control =
+        event.target.closest(".bt-volume-control");
+
+    document
+        .querySelectorAll(".bt-volume-control")
+        .forEach(el =>
+            el.classList.remove("open")
+        );
+
+    if (control) {
+        control.classList.add("open");
+    }
+});
+});
