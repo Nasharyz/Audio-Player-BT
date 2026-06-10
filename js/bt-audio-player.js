@@ -1,4 +1,3 @@
-console.log("BT Audio Player GitHub OK");
 let currentAudio = null;
 let currentIcon = null;
 
