@@ -7,7 +7,8 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
 
     player.innerHTML = `
     <audio class="bt-audio"></audio>
-<div class="bt-track-info">
+
+    <div class="bt-track-info">
 
         <div class="bt-time-row">
 
@@ -52,7 +53,7 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     </div>
 </div>
 `;
-    console.log("APRÈS innerHTML");
+
     const audio = player.querySelector(".bt-audio");
     const icon = player.querySelector(".bt-icon");
     const title = player.querySelector(".bt-title");
