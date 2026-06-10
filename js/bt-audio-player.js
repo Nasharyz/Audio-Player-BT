@@ -9,7 +9,11 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     <audio class="bt-audio"></audio>
 
     <div class="bt-track-info">
-
+<div class="bt-track-text">
+            <span class="bt-title"></span>
+            <span class="bt-separator"> — </span>
+            <span class="bt-artist"></span>
+        </div>
     </div>
 `;
     const audio = player.querySelector(".bt-audio");
