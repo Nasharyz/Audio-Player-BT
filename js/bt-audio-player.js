@@ -5,6 +5,13 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     
     let isDragging = false;
 
+    player.innerHTML = `
+    <audio class="bt-audio"></audio>
+
+    <div class="bt-track-info">
+
+    </div>
+`;
     const audio = player.querySelector(".bt-audio");
     const icon = player.querySelector(".bt-icon");
     const title = player.querySelector(".bt-title");
