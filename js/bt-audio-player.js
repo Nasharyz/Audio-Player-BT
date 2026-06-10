@@ -4,7 +4,7 @@ let currentIcon = null;
 document.querySelectorAll(".bt-audioplayer").forEach(player => {
     
     let isDragging = false;
-
+console.log("AVANT innerHTML");
     player.innerHTML = `
     <audio class="bt-audio"></audio>
 
@@ -16,6 +16,7 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
         </div>
     </div>
 `;
+    console.log("APRÈS innerHTML");
     const audio = player.querySelector(".bt-audio");
     const icon = player.querySelector(".bt-icon");
     const title = player.querySelector(".bt-title");
