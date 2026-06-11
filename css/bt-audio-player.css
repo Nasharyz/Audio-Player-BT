@@ -17,9 +17,11 @@ body {
 }
 
 .bt-play-button {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
 
+    border-radius: 50%;
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -143,8 +145,8 @@ body {
 }
 
 .bt-volume-icon svg {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
 }
 
 .bt-volume-control.open .bt-volume-icon {
@@ -183,8 +185,8 @@ body {
 }
 
 .bt-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
 }
 
 .bt-time-display {
