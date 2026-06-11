@@ -6,7 +6,7 @@ body {
 
 .bt-audioplayer {
     background: var(--neutralDark, #1C1C1C);
-    padding: var(--padding, 14px);
+    padding: var(--padding, 10px);
     border-radius: var(--radius, 15px);
     width: var(--width, 300px);
     box-sizing: border-box;
@@ -17,9 +17,8 @@ body {
 }
 
 .bt-play-button {
-    width: 30px;
-    height: 30px;
-    margin-right: 2px;
+    width: 25px;
+    height: 25px;
 
     display: flex;
     align-items: center;
@@ -115,7 +114,7 @@ body {
     height: 4px;
     flex: none;
     appearance: none;
-    background: rgba(20,20,20,.15);
+    background: var(--texColor, .15);
     border-radius: 999px;
     cursor: pointer;
     transition: opacity .5s ease;
@@ -144,8 +143,8 @@ body {
 }
 
 .bt-volume-icon svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
 
 .bt-volume-control.open .bt-volume-icon {
