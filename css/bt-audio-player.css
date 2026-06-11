@@ -6,7 +6,7 @@ body {
 
 .bt-audioplayer {
     background: var(--neutralDark, #1C1C1C);
-    padding: 6px 14px;
+    padding: 14px 14px;
     border-radius: var(--radius, 15px);
     width: var(--width, 300px);
     box-sizing: border-box;
