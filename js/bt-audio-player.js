@@ -85,11 +85,11 @@ artist.textContent =
 const playSVG = `
 <svg viewBox="0 0 24 24" width="100%" height="100%">
         <path
-            transform="translate(8,0)"
             fill="currentColor"
-            d="M6 5.912c0-.155.037-.307.107-.443c.23-.44.75-.599 1.163-.354l10.29 6.088c.14.083.255.206.332.355c.23.44.08.995-.332 1.239L7.27 18.885a.8.8 0 0 1-.415.115C6.383 19 6 18.592 6 18.089z"/>
+            fill-rule="evenodd"
+            d="m9.524 4.938l10.092 6.21a1 1 0 0 1 0 1.704l-10.092 6.21A1 1 0 0 1 8 18.21V5.79a1 1 0 0 1 1.524-.852"/>
     </svg>`;
-
+    
 const pauseSVG = `
 <svg viewBox="0 0 24 24" width="100%" height="100%">
     <path fill="currentColor"
