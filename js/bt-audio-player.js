@@ -86,7 +86,7 @@ const playSVG = `
 <svg viewBox="0 0 24 24" width="100%" height="100%">
     <path fill="currentColor"
         fill-rule="evenodd"
-        d="M10 18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1zm7 0a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1z"/>
+        d="M15.544 9.59a1 1 0 0 1-.053 1.728L6.476 16.2A1 1 0 0 1 5 15.321V4.804a1 1 0 0 1 1.53-.848z"/>
 </svg>`;
 
 const pauseSVG = `
