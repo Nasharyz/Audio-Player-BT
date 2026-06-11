@@ -6,7 +6,7 @@ body {
 
 .bt-audioplayer {
     background: var(--neutralDark, #1C1C1C);
-    padding: var(--padding, 10px);
+    padding: 12px;
     border-radius: var(--radius, 15px);
     width: var(--width, 300px);
     box-sizing: border-box;
@@ -90,7 +90,7 @@ body {
 .bt-time-row {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
 }
 
 .bt-volume-control {
@@ -195,4 +195,5 @@ body {
     min-width: 55px;
     text-align: right;
     color: var(--textColor, #9B9B9B);
+    margin-left: 4px;
 }
