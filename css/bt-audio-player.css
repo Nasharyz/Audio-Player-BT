@@ -142,6 +142,7 @@ body {
     display: flex;
     align-items: center;
     color: var(--textColor, #9B9B9B);
+    margin-left: 4px;
 }
 
 .bt-volume-icon svg {
