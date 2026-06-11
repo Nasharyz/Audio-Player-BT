@@ -87,7 +87,7 @@ const playSVG = `
         <path
             fill="currentColor"
             fill-rule="evenodd"
-            d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M9.555 7.168A1 1 0 0 0 8 8v4a1 1 0 0 0 1.555.832l3-2a1 1 0 0 0 0-1.664z"/>
+            d="M15.544 9.59a1 1 0 0 1-.053 1.728L6.476 16.2A1 1 0 0 1 5 15.321V4.804a1 1 0 0 1 1.53-.848l9.014 5.634Z"/>
     </svg>`;
 
 const pauseSVG = `
