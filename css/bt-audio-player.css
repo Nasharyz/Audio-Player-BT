@@ -181,7 +181,6 @@ body {
 
 .bt-icon {
     display: flex;
-    padding-left: 2px;
     align-items: center;
     justify-content: center;
     color: var(--textColor, #9B9B9B);
