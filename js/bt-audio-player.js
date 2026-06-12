@@ -57,9 +57,8 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     const audio = player.querySelector(".bt-audio");
     const icon = player.querySelector(".bt-icon");
     const title = player.querySelector(".bt-title");
-    console.log("title =", title);
     const artist = player.querySelector(".bt-artist");
-    console.log("artist =", artist);
+    const separator = player.querySelector(".bt-separator");
     const trackText = player.querySelector(".bt-track-text");
     const button = player.querySelector(".bt-play-button");
     const progressFill = player.querySelector(".bt-progress-fill");
@@ -68,17 +67,45 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     const progressBar = player.querySelector(".bt-progress-bar");
     const volumeSlider = player.querySelector(".bt-volume-slider");
     const volumeControl = player.querySelector(".bt-volume-control");
+    const titleData = player.dataset.title;
+    const artistData = player.dataset.artist;
+    const separatorData =
+    player.dataset.separator || "—";
 
-title.textContent =
-    player.dataset.title || "Titre";
-artist.textContent =
-    player.dataset.artist || "Artiste";
-
-    if (
-    player.dataset.showcredits === "false"
-) {
+if (player.dataset.showcredits === "false") {
     trackText.style.display = "none";
 }
+
+else if (titleData && artistData) {
+    title.style.display = "";
+    separator.style.display = "";
+    artist.style.display = "";
+
+    title.textContent = titleData;
+    separator.textContent = separatorData;
+    artist.textContent = artistData;
+}
+
+else if (titleData) {
+    title.style.display = "";
+    separator.style.display = "none";
+    artist.style.display = "none";
+
+    title.textContent = titleData;
+}
+
+else if (artistData) {
+    title.style.display = "none";
+    separator.style.display = "none";
+    artist.style.display = "";
+
+    artist.textContent = artistData;
+}
+
+else {
+    trackText.style.display = "none";
+}
+    
     audio.src = player.dataset.audio;
     audio.volume = volumeSlider.value;
 
