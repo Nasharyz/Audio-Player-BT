@@ -59,6 +59,7 @@ body {
     display: block;
     margin: 0 !important;
     text-align: left !important;
+    direction: ltr !important;
     width: 0%;
     height: 100%;
     background: var(--accentClr, #646464);
