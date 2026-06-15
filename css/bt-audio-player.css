@@ -49,6 +49,7 @@ body {
     border-radius: 999px;
     cursor: pointer;
     transition: height .15s ease;
+    text-align: left !important;
 }
 
 .bt-progress-bar:hover {
