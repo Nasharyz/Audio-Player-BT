@@ -109,6 +109,21 @@ else {
     audio.src = player.dataset.audio;
     audio.volume = volumeSlider.value;
 
+function updateVolumeSlider() {
+
+    const percent = volumeSlider.value * 100;
+
+    volumeSlider.style.background =
+        `linear-gradient(
+            to right,
+            var(--accentClr, #646464) 0%,
+            var(--accentClr, #646464) ${percent}%,
+            rgba(255,255,255,.15) ${percent}%,
+            rgba(255,255,255,.15) 100%
+        )`;
+}
+updateVolumeSlider();
+
 const playSVG = `
 <svg viewBox="0 0 512 512" width="100%" height="100%">
     <path fill="currentColor"
