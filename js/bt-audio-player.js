@@ -212,6 +212,7 @@ audio.addEventListener("timeupdate", function() {
 
 volumeSlider.addEventListener("input", function() {
     audio.volume = volumeSlider.value;
+    updateVolumeSlider();
 });
 
 volumeControl.addEventListener("click", (event) => {
