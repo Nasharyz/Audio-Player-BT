@@ -59,6 +59,7 @@ body {
 .bt-progress-fill {
     width: 0%;
     height: 100%;
+    direction: ltr;
     background: var(--accentClr, #646464);
     border-radius: 999px;
 
