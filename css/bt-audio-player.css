@@ -44,7 +44,6 @@ body {
 
 .bt-progress-bar {
     flex: 1;
-    direction: ltr;
     height: 4px;
     background: rgba(255,255,255,.15);
     border-radius: 999px;
@@ -59,7 +58,6 @@ body {
 .bt-progress-fill {
     width: 0%;
     height: 100%;
-    direction: ltr;
     background: var(--accentClr, #646464);
     border-radius: 999px;
 
