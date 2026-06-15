@@ -56,15 +56,11 @@ body {
 }
 
 .bt-progress-fill {
-    display: block;
-    margin: 0 !important;
-    text-align: left !important;
-    direction: ltr !important;
     width: 0%;
     height: 100%;
     background: var(--accentClr, #646464);
     border-radius: 999px;
-
+    outline: 1px solid red;
     position: relative;
 }
 .bt-progress-fill::after {
