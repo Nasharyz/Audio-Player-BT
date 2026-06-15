@@ -116,10 +116,10 @@ function updateVolumeSlider() {
     volumeSlider.style.background =
         `linear-gradient(
             to right,
-            var(--accentClr, #646464) 0%,
-            var(--accentClr, #646464) ${percent}%,
-            rgba(255,255,255,.15) ${percent}%,
-            rgba(255,255,255,.15) 100%
+            red 0%,
+            red ${percent}%,
+            blue ${percent}%,
+            blue 100%
         )`;
 }
 updateVolumeSlider();
