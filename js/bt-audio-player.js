@@ -69,8 +69,7 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     const volumeControl = player.querySelector(".bt-volume-control");
     const titleData = player.dataset.title;
     const artistData = player.dataset.artist;
-    const separatorData =
-    player.dataset.separator || "—";
+    const separatorData = player.dataset.separator || "—";
 
 if (player.dataset.showcredits === "false") {
     trackText.style.display = "none";
@@ -121,6 +120,7 @@ function updateVolumeSlider() {
             blue ${percent}%,
             blue 100%
         )`;
+    console.log(volumeSlider.style.background);
 }
 updateVolumeSlider();
 
