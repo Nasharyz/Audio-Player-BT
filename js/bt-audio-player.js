@@ -67,6 +67,7 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     const progressBar = player.querySelector(".bt-progress-bar");
     const volumeSlider = player.querySelector(".bt-volume-slider");
     const volumeControl = player.querySelector(".bt-volume-control");
+    const wasOpen = volumeControl.classList.contains("open");
     const titleData = player.dataset.title;
     const artistData = player.dataset.artist;
     const separatorData = player.dataset.separator || "—";
@@ -219,7 +220,7 @@ volumeControl.addEventListener("click", (event) => {
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el => el.classList.remove("open"));
-
+ if (!wasOpen) {
     volumeControl.classList.add("open");
 });
 
