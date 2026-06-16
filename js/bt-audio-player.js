@@ -67,7 +67,6 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     const progressBar = player.querySelector(".bt-progress-bar");
     const volumeSlider = player.querySelector(".bt-volume-slider");
     const volumeControl = player.querySelector(".bt-volume-control");
-    const wasOpen = volumeControl.classList.contains("open");
     const titleData = player.dataset.title;
     const artistData = player.dataset.artist;
     const separatorData = player.dataset.separator || "—";
@@ -121,6 +120,7 @@ function updateVolumeSlider() {
             blue ${percent}%,
             blue 100%
         )`;
+    updateVolumeSlider();
 }
 
 const playSVG = `
@@ -215,9 +215,9 @@ volumeSlider.addEventListener("input", function() {
 });
 
 volumeControl.addEventListener("click", (event) => {
-
     event.stopPropagation();
-
+    const wasOpen =
+        volumeControl.classList.contains("open");
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el => el.classList.remove("open"));
@@ -281,7 +281,7 @@ document.addEventListener("click", (event) => {
 
     const control =
         event.target.closest(".bt-volume-control");
-
+/*
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el =>
@@ -291,5 +291,5 @@ document.addEventListener("click", (event) => {
     if (control) {
         control.classList.add("open");
     }
-});
+});*/
 });
