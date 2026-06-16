@@ -111,7 +111,7 @@ else {
 
 function updateVolumeSlider() {
 
-    const percent = volumeSlider.value * 100 + '%';
+    const percent = volumeSlider.value * 100;
 
     volumeSlider.style.background =
         `linear-gradient(
