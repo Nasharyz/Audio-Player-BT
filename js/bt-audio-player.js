@@ -120,8 +120,8 @@ function updateVolumeSlider() {
             blue ${percent}%,
             blue 100%
         )`;
-    updateVolumeSlider();
 }
+    updateVolumeSlider();
 
 const playSVG = `
 <svg viewBox="0 0 512 512" width="100%" height="100%">
@@ -218,6 +218,7 @@ volumeControl.addEventListener("click", (event) => {
     event.stopPropagation();
     const wasOpen =
         volumeControl.classList.contains("open");
+    console.log("wasOpen =", wasOpen);
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el => el.classList.remove("open"));
