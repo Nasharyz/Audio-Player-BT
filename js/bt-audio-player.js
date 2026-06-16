@@ -110,7 +110,7 @@ else {
 
 function updateVolumeSlider() {
 
-    const percent = volumeSlider.value * 100;
+    const percent = volumeSlider.value * 100 + '%';
 
     volumeSlider.style.background =
         `linear-gradient(
@@ -120,9 +120,7 @@ function updateVolumeSlider() {
             blue ${percent}%,
             blue 100%
         )`;
-    console.log(volumeSlider.style.background);
 }
-updateVolumeSlider();
 
 const playSVG = `
 <svg viewBox="0 0 512 512" width="100%" height="100%">
@@ -211,7 +209,6 @@ audio.addEventListener("timeupdate", function() {
 }
 
 volumeSlider.addEventListener("input", function() {
-    console.log(volumeSlider.value);
     audio.volume = volumeSlider.value;
 });
 
