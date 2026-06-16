@@ -282,7 +282,6 @@ document.addEventListener("click", (event) => {
 
     const control =
         event.target.closest(".bt-volume-control");
-/*
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el =>
