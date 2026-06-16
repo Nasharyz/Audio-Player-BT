@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <title>Blank Theme friendly Audio Player v1.0</title>
 <style>
-
 body {
     background: var(--neutral, #212121);
     color: var(--textColor, #9B9B9B);
@@ -13,9 +12,9 @@ body {
 
 .bt-audioplayer {
     background: var(--neutralDark, #1C1C1C);
-    padding: var(--padding, 14px);
-    border-radius: var(--radius, 15px);
-    width: var(--width, 300px);
+    padding: 6px 14px;
+    border-radius: 12px;
+    width: 300px;
     box-sizing: border-box;
 
     display: flex;
@@ -24,17 +23,14 @@ body {
 }
 
 .bt-play-button {
-    width: 30px;
+    width: 25px;
     height: 30px;
-    margin-right: 2px;
 
     border-radius: 50%;
-
+    
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: var(--neutral, #212121);
 
     cursor: pointer;
 }
@@ -55,10 +51,11 @@ body {
 .bt-progress-bar {
     flex: 1;
     height: 4px;
-    background: rgba(155,155,155,.15);
+    background: rgba(255,255,255,.15);
     border-radius: 999px;
     cursor: pointer;
     transition: height .15s ease;
+    text-align: left !important;
 }
 
 .bt-progress-bar:hover {
@@ -70,7 +67,6 @@ body {
     height: 100%;
     background: var(--accentClr, #646464);
     border-radius: 999px;
-
     position: relative;
 }
 .bt-progress-fill::after {
@@ -100,13 +96,14 @@ body {
 .bt-time-row {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
 }
 
 .bt-volume-control {
     position: relative;
     display: flex;
     align-items: center;
+    margin-left: 4px;
 }
 
 .bt-volume-control.open .bt-volume-slider {
@@ -129,7 +126,7 @@ body {
     background: rgba(255,255,255,.15);
     border-radius: 999px;
     cursor: pointer;
-    transition: opacity .15s ease;
+    transition: opacity .5s ease;
 }
 
 .bt-volume-slider::-webkit-slider-thumb {
@@ -188,7 +185,6 @@ body {
 
 .bt-icon {
     display: flex;
-    padding-left: 2px;
     align-items: center;
     justify-content: center;
     color: var(--textColor, #9B9B9B);
@@ -206,6 +202,7 @@ body {
     min-width: 55px;
     text-align: right;
     color: var(--textColor, #9B9B9B);
+    margin-left: 7px;
 }
 </style>
 </head>
@@ -270,10 +267,60 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     
     let isDragging = false;
 
+    player.innerHTML = `
+    <audio class="bt-audio"></audio>
+
+    <div class="bt-track-info">
+
+        <div class="bt-time-row">
+
+            <div class="bt-play-button">
+                <span class="bt-icon"></span>
+            </div>
+
+            <div class="bt-progress-bar">
+                <div class="bt-progress-fill"></div>
+            </div>
+            <span class="bt-time-display">
+                <span class="bt-current-time">0:00</span>
+                /
+                <span class="bt-duration">0:00</span>
+            </span>
+            <div class="bt-volume-control">
+                <span class="bt-volume-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" style="color: currentColor;" width="64" height="64" viewBox="0 0 24 24">
+                        <g fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.08 9H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h.08a2 2 0 0 1 1.519.698l3.642 4.25c.604.704 1.759.277 1.759-.651V4.703c0-.928-1.155-1.355-1.76-.65L6.6 8.301A2 2 0 0 1 5.08 9zm13.556-4.725a1 1 0 1 0-1.377 1.45c3.655 3.472 3.655 9.078 0 12.55a1 1 0 1 0 1.377 1.45c4.485-4.26 4.485-11.19 0-15.45zm-2.947 2.8a1 1 0 1 0-1.378 1.45c2.027 1.925 2.027 5.025 0 6.95a1 1 0 1 0 1.378 1.45c2.857-2.714 2.857-7.136 0-9.85z"
+                        fill="currentColor">
+                            </path>
+                        </g>
+                    </svg>
+
+                </span>
+
+                <input
+                    type="range"
+                    class="bt-volume-slider"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.75">
+            </div>
+        </div>
+        <div class="bt-track-text">
+            <span class="bt-title"></span>
+            <span class="bt-separator"> — </span>
+            <span class="bt-artist"></span>
+        </div>
+    </div>
+</div>
+`;
+
     const audio = player.querySelector(".bt-audio");
     const icon = player.querySelector(".bt-icon");
     const title = player.querySelector(".bt-title");
     const artist = player.querySelector(".bt-artist");
+    const separator = player.querySelector(".bt-separator");
     const trackText = player.querySelector(".bt-track-text");
     const button = player.querySelector(".bt-play-button");
     const progressFill = player.querySelector(".bt-progress-fill");
@@ -282,26 +329,68 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     const progressBar = player.querySelector(".bt-progress-bar");
     const volumeSlider = player.querySelector(".bt-volume-slider");
     const volumeControl = player.querySelector(".bt-volume-control");
+    const titleData = player.dataset.title;
+    const artistData = player.dataset.artist;
+    const separatorData = player.dataset.separator || "—";
 
-title.textContent =
-    player.dataset.title || "Titre";
-artist.textContent =
-    player.dataset.artist || "Artiste";
-
-    if (
-    player.dataset.showcredits === "false"
-) {
+if (player.dataset.showcredits === "false") {
     trackText.style.display = "none";
 }
+
+else if (titleData && artistData) {
+    title.style.display = "";
+    separator.style.display = "";
+    artist.style.display = "";
+
+    title.textContent = titleData;
+    separator.textContent = separatorData;
+    artist.textContent = artistData;
+}
+
+else if (titleData) {
+    title.style.display = "";
+    separator.style.display = "none";
+    artist.style.display = "none";
+
+    title.textContent = titleData;
+}
+
+else if (artistData) {
+    title.style.display = "none";
+    separator.style.display = "none";
+    artist.style.display = "";
+
+    artist.textContent = artistData;
+}
+
+else {
+    trackText.style.display = "none";
+}
+    
     audio.src = player.dataset.audio;
     audio.volume = volumeSlider.value;
 
+function updateVolumeSlider() {
+
+    const percent = volumeSlider.value * 100;
+
+    volumeSlider.style.background =
+        `linear-gradient(
+            to right,
+            var(--accentClr, #646464) 0%,
+            var(--accentClr, #646464) ${percent}%,
+            var(--textColor, #9B9B9B) ${percent}%,
+            var(--textColor, #9B9B9B) 100%
+        )`;
+}
+updateVolumeSlider();
+    
 const playSVG = `
-<svg viewBox="0 0 24 24" width="100%" height="100%">
-        <path
-            fill="currentColor"
-            d="M6 5.912c0-.155.037-.307.107-.443c.23-.44.75-.599 1.163-.354l10.29 6.088c.14.083.255.206.332.355c.23.44.08.995-.332 1.239L7.27 18.885a.8.8 0 0 1-.415.115C6.383 19 6 18.592 6 18.089z"/>
-    </svg>`;
+<svg viewBox="0 0 512 512" width="100%" height="100%">
+    <path fill="currentColor"
+        fill-rule="evenodd"
+        d="M133 440a35.37 35.37 0 0 1-17.5-4.67c-12-6.8-19.46-20-19.46-34.33V111c0-14.37 7.46-27.53 19.46-34.33a35.13 35.13 0 0 1 35.77.45l247.85 148.36a36 36 0 0 1 0 61l-247.89 148.4A35.5 35.5 0 0 1 133 440"/>
+</svg>`;
 
 const pauseSVG = `
 <svg viewBox="0 0 24 24" width="100%" height="100%">
@@ -384,17 +473,19 @@ audio.addEventListener("timeupdate", function() {
 
 volumeSlider.addEventListener("input", function() {
     audio.volume = volumeSlider.value;
+    updateVolumeSlider();
 });
 
 volumeControl.addEventListener("click", (event) => {
-
     event.stopPropagation();
-
+    const wasOpen =
+        volumeControl.classList.contains("open");
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el => el.classList.remove("open"));
-
+ if (!wasOpen) {
     volumeControl.classList.add("open");
+ }
 });
 
 audio.addEventListener("loadedmetadata", function() {
@@ -452,7 +543,6 @@ document.addEventListener("click", (event) => {
 
     const control =
         event.target.closest(".bt-volume-control");
-
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el =>
