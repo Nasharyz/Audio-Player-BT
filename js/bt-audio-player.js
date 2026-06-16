@@ -211,6 +211,7 @@ audio.addEventListener("timeupdate", function() {
 
 volumeSlider.addEventListener("input", function() {
     audio.volume = volumeSlider.value;
+    updateVolumeSlider();
 });
 
 volumeControl.addEventListener("click", (event) => {
@@ -222,6 +223,7 @@ volumeControl.addEventListener("click", (event) => {
         .forEach(el => el.classList.remove("open"));
  if (!wasOpen) {
     volumeControl.classList.add("open");
+ }
 });
 
 audio.addEventListener("loadedmetadata", function() {
