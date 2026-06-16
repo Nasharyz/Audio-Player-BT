@@ -218,7 +218,6 @@ volumeControl.addEventListener("click", (event) => {
     event.stopPropagation();
     const wasOpen =
         volumeControl.classList.contains("open");
-    console.log("wasOpen =", wasOpen);
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el => el.classList.remove("open"));
