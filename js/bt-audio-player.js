@@ -120,8 +120,8 @@ function updateVolumeSlider() {
             blue ${percent}%,
             blue 100%
         )`;
-}
     updateVolumeSlider();
+}
 
 const playSVG = `
 <svg viewBox="0 0 512 512" width="100%" height="100%">
