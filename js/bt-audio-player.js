@@ -291,6 +291,6 @@ document.addEventListener("click", (event) => {
 
     if (control) {
         control.classList.add("open");
-    }
-});*/
+    }*/
+});
 });
