@@ -139,7 +139,9 @@ body {
 .bt-volume-track {
     position: relative;
 
-    width: 60px;
+    overflow: visible;
+
+    width: 80px;
     height: 4px;
 
     border-radius: 999px;
