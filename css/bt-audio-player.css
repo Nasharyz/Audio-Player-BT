@@ -160,7 +160,7 @@ body {
 
     border-radius: inherit;
 
-    background: var(--accent-color,#646464);
+    background: var(--accentClr, #646464);
 }
 
 .bt-volume-thumb {
