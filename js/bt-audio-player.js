@@ -112,7 +112,7 @@ function updateVolumePosition() {
 
     volumeControl.classList.remove("bottom");
 
-    const sliderWidth = 40;
+    const sliderWidth = 90;
 
     const rect =
         volumeControl.getBoundingClientRect();
