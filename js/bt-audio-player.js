@@ -108,6 +108,23 @@ else {
     audio.src = player.dataset.audio;
     audio.volume = volumeSlider.value;
 
+function updateVolumePosition() {
+
+    volumeControl.classList.remove("bottom");
+
+    const sliderWidth = 90;
+
+    const rect =
+        volumeControl.getBoundingClientRect();
+
+    if (
+        rect.right + sliderWidth >
+        window.innerWidth
+    ) {
+        volumeControl.classList.add("bottom");
+    }
+}
+    
 function updateVolumeSlider() {
 
     const percent = volumeSlider.value * 100;
@@ -115,10 +132,10 @@ function updateVolumeSlider() {
     volumeSlider.style.background =
         `linear-gradient(
             to right,
-            var(--accentClr, #646464) 0%,
-            var(--accentClr, #646464) ${percent}%,
-            var(--textColor, #9B9B9B) ${percent}%,
-            var(--textColor, #9B9B9B) 100%
+            var(--accentClr, #9B9B9B) 0%,
+            var(--accentClr, #9B9B9B) ${percent}%,
+            var(--textColor, #646464) ${percent}%,
+            var(--textColor, #646464) 100%
         )`;
 }
 updateVolumeSlider();
