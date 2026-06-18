@@ -5,7 +5,7 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     
     let isDragging = false;
 
-    player.innerHTML = `
+     player.innerHTML = `
     <audio class="bt-audio"></audio>
 
     <div class="bt-track-info">
@@ -36,13 +36,12 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
 
                 </span>
 
-                <input
-                    type="range"
-                    class="bt-volume-slider"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value="0.75">
+                <div class="bt-volume-slider">
+    <div class="bt-volume-track">
+        <div class="bt-volume-fill"></div>
+        <div class="bt-volume-thumb"></div>
+    </div>
+</div>
             </div>
         </div>
         <div class="bt-track-text">
@@ -51,7 +50,6 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
             <span class="bt-artist"></span>
         </div>
     </div>
-</div>
 `;
 
     const audio = player.querySelector(".bt-audio");
@@ -65,8 +63,10 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
     const currentTimeElement = player.querySelector(".bt-current-time");
     const durationElement = player.querySelector(".bt-duration");
     const progressBar = player.querySelector(".bt-progress-bar");
-    const volumeSlider = player.querySelector(".bt-volume-slider");
     const volumeControl = player.querySelector(".bt-volume-control");
+    const volumeTrack = player.querySelector(".bt-volume-track");
+    const volumeFill = player.querySelector(".bt-volume-fill");
+    const volumeThumb = player.querySelector(".bt-volume-thumb");
     const titleData = player.dataset.title;
     const artistData = player.dataset.artist;
     const separatorData = player.dataset.separator || "—";
@@ -106,39 +106,81 @@ else {
 }
     
     audio.src = player.dataset.audio;
-    audio.volume = volumeSlider.value;
+
+function updateVolumeUI(volume) {
+
+    const percent = volume * 100;
+
+    volumeFill.style.width =
+        percent + "%";
+
+    volumeThumb.style.left =
+        percent + "%";
+}
+
+audio.volume = 0.75;
+updateVolumeUI(audio.volume);
+
+volumeTrack.addEventListener("click", (event) => {
+
+    const rect =
+        volumeTrack.getBoundingClientRect();
+
+    let ratio =
+        (event.clientX - rect.left) / rect.width;
+
+    ratio =
+        Math.max(0, Math.min(1, ratio));
+
+    audio.volume = ratio;
+
+    updateVolumeUI(ratio);
+});
+
+let volumeDragging = false;
+
+volumeThumb.addEventListener("mousedown", () => {
+    volumeDragging = true;
+});
+
+document.addEventListener("mousemove", (event) => {
+
+    if (!volumeDragging) return;
+
+    const rect =
+        volumeTrack.getBoundingClientRect();
+
+    let ratio =
+        (event.clientX - rect.left) / rect.width;
+
+    ratio =
+        Math.max(0, Math.min(1, ratio));
+
+    audio.volume = ratio;
+
+    updateVolumeUI(ratio);
+});
 
 function updateVolumePosition() {
 
     volumeControl.classList.remove("bottom");
 
-    const sliderWidth = 90;
+    const popupWidth = 90;
 
     const rect =
         volumeControl.getBoundingClientRect();
 
     if (
-        rect.right + sliderWidth >
+        rect.right + popupWidth >
         window.innerWidth
     ) {
         volumeControl.classList.add("bottom");
     }
 }
-    
-function updateVolumeSlider() {
 
-    const percent = volumeSlider.value * 100;
-
-    volumeSlider.style.background =
-        `linear-gradient(
-            to right,
-            var(--accentClr, #9B9B9B) 0%,
-            var(--accentClr, #9B9B9B) ${percent}%,
-            var(--textColor, #646464) ${percent}%,
-            var(--textColor, #646464) 100%
-        )`;
-}
-updateVolumeSlider();
+document.addEventListener("mouseup", () => {
+    volumeDragging = false;
+});
     
 const playSVG = `
 <svg viewBox="0 0 512 512" width="100%" height="100%">
@@ -225,11 +267,6 @@ audio.addEventListener("timeupdate", function() {
     const remainingSeconds =Math.floor(seconds % 60);
     return (minutes + ":" + remainingSeconds.toString().padStart(2, "0"));
 }
-
-volumeSlider.addEventListener("input", function() {
-    audio.volume = volumeSlider.value;
-    updateVolumeSlider();
-});
 
 volumeControl.addEventListener("click", (event) => {
     event.stopPropagation();
