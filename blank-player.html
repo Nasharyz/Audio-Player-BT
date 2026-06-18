@@ -1,3 +1,4 @@
+<br>
 <!DOCTYPE html>
 <html>
 <head>
@@ -113,20 +114,26 @@ body {
 
 .bt-volume-slider {
     position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-90deg);
+    left: calc(25% + 15px);
+    top: calc(25% + 15px);
+    transform: translateY(-50%) rotate(-90deg);
     transform-origin: center;
     opacity: 0;
     pointer-events: none;
     width: 40px;
     height: 4px;
-    flex: none;
     appearance: none;
     background: rgba(255,255,255,.15);
     border-radius: 999px;
     cursor: pointer;
-    transition: opacity .5s ease;
+    transition: opacity .3s ease;
+}
+
+.bt-volume-control.bottom .bt-volume-slider {
+    left: 40%;
+    top: calc(100% + 20px);
+
+    transform: translateX(-50%) rotate(-90deg);
 }
 
 .bt-volume-slider::-webkit-slider-thumb {
@@ -369,6 +376,23 @@ else {
     
     audio.src = player.dataset.audio;
     audio.volume = volumeSlider.value;
+    
+    function updateVolumePosition() {
+
+    volumeControl.classList.remove("bottom");
+
+    const sliderWidth = 90;
+
+    const rect =
+        volumeControl.getBoundingClientRect();
+
+    if (
+        rect.right + sliderWidth >
+        window.innerWidth
+    ) {
+        volumeControl.classList.add("bottom");
+    }
+}
 
 function updateVolumeSlider() {
 
@@ -377,10 +401,10 @@ function updateVolumeSlider() {
     volumeSlider.style.background =
         `linear-gradient(
             to right,
-            var(--accentClr, #646464) 0%,
-            var(--accentClr, #646464) ${percent}%,
-            var(--textColor, #9B9B9B) ${percent}%,
-            var(--textColor, #9B9B9B) 100%
+            var(--accentClr, #9B9B9B) 0%,
+            var(--accentClr, #9B9B9B) ${percent}%,
+            var(--textColor, #646464) ${percent}%,
+            var(--textColor, #646464) 100%
         )`;
 }
 updateVolumeSlider();
@@ -478,14 +502,19 @@ volumeSlider.addEventListener("input", function() {
 
 volumeControl.addEventListener("click", (event) => {
     event.stopPropagation();
+
+    updateVolumePosition();
+
     const wasOpen =
         volumeControl.classList.contains("open");
+
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el => el.classList.remove("open"));
- if (!wasOpen) {
-    volumeControl.classList.add("open");
- }
+
+    if (!wasOpen) {
+        volumeControl.classList.add("open");
+    }
 });
 
 audio.addEventListener("loadedmetadata", function() {
