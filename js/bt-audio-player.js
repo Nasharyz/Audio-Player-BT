@@ -50,6 +50,7 @@ document.querySelectorAll(".bt-audioplayer").forEach(player => {
             <span class="bt-artist"></span>
         </div>
     </div>
+</div>
 `;
 
     const audio = player.querySelector(".bt-audio");
