@@ -109,7 +109,7 @@ body {
     position: absolute;
     left: calc(100% + 15px);
     top: calc(50% + 15px);
-    transform: translateX(-50%) rotate(-90deg);
+
     transform-origin: center;
     opacity: 0;
     pointer-events: none;
