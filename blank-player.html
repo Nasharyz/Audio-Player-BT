@@ -377,8 +377,8 @@ else {
     
     audio.src = player.dataset.audio;
     audio.volume = volumeSlider.value;
-    
-    function updateVolumePosition() {
+
+function updateVolumePosition() {
 
     volumeControl.classList.remove("bottom");
 
@@ -394,7 +394,7 @@ else {
         volumeControl.classList.add("bottom");
     }
 }
-
+    
 function updateVolumeSlider() {
 
     const percent = volumeSlider.value * 100;
@@ -503,19 +503,14 @@ volumeSlider.addEventListener("input", function() {
 
 volumeControl.addEventListener("click", (event) => {
     event.stopPropagation();
-
-    updateVolumePosition();
-
     const wasOpen =
         volumeControl.classList.contains("open");
-
     document
         .querySelectorAll(".bt-volume-control")
         .forEach(el => el.classList.remove("open"));
-
-    if (!wasOpen) {
-        volumeControl.classList.add("open");
-    }
+ if (!wasOpen) {
+    volumeControl.classList.add("open");
+ }
 });
 
 audio.addEventListener("loadedmetadata", function() {
