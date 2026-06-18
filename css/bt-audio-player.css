@@ -40,6 +40,7 @@ body {
 .bt-track-info {
     flex: 1;
     min-width: 0;
+    overflow: visible;
 }
 
 .bt-progress-bar {
@@ -68,8 +69,8 @@ body {
     position: absolute;
     right: 0;
     top: 50%;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background: var(--textColor, #9B9B9B);
     border-radius: 50%;
     opacity: 0;
@@ -107,42 +108,82 @@ body {
 
 .bt-volume-slider {
     position: absolute;
-    left: calc(100% + 15px);
-    top: calc(50% + 15px);
 
-    transform-origin: center;
+    left: calc(100% + 8px);
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 60px;
+
+    padding: 8px 10px;
+
+    border-radius: 999px;
+    border: 2px solid var(--neutral, #212121);
+
+    background: var(--neutralDark, #1c1c1c);
+
     opacity: 0;
     pointer-events: none;
-    width: 40px;
+
+    transition: opacity .25s ease;
+
+    z-index: 1000;
+}
+
+.bt-volume-control.open .bt-volume-slider {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.bt-volume-track {
+    position: relative;
+
+    width: 60px;
     height: 4px;
-    appearance: none;
-    background: rgba(255,255,255,.15);
+
     border-radius: 999px;
+
+    background: rgba(255,255,255,.15);
+
     cursor: pointer;
-    transition: opacity .5s ease;
+}
+
+.bt-volume-fill {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    height: 100%;
+    width: 75%;
+
+    border-radius: inherit;
+
+    background: var(--accent-color,#646464);
+}
+
+.bt-volume-thumb {
+    position: absolute;
+
+    top: 50%;
+    left: 75%;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: var(--textColor, #9B9B9B);
+
+    transform: translate(-50%,-50%);
 }
 
 .bt-volume-control.bottom .bt-volume-slider {
     left: 50%;
-    top: calc(100% + 20px);
+    top: calc(100% + 10px);
 
-    transform: translateX(-50%) rotate(-90deg);
-}
-
-.bt-volume-slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--textColor, #9B9B9B);
-}
-
-.bt-volume-slider::-moz-range-thumb {
-    width: 8px;
-    height: 8px;
-    border: none;
-    border-radius: 50%;
-    background: var(--textColor, #9B9B9B);
+    transform: translateX(-50%);
 }
 
 .bt-volume-icon {
